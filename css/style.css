@@ -1,0 +1,146 @@
+html,
+body {
+    padding: 0;
+    margin: 0;
+    background-color: #f4f4f4;
+
+}
+
+canvas {
+    position: fixed;
+    background-color: #000;
+    height: 100%;
+
+}
+
+#audioPlayer {
+    border: 0;
+    background-color: #f9ece2;
+    width: 100%;
+}
+
+a:link {
+    text-decoration: none;
+    color: #bdc3c7;
+}
+
+a:visited {
+    text-decoration: none;
+    color: #bdc3c7;
+}
+
+a:hover {
+    text-decoration: none;
+    color: #bdc3c7;
+}
+
+a:active {
+    text-decoration: none;
+    color: #bdc3c7;
+}
+
+#sidebar {
+    position: absolute;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: #999999;
+    box-shadow: 5px 5px 10px;
+
+    z-index: 1;
+}
+
+#link_list li {
+    display: block;
+    width: 100%;
+
+}
+
+#link_list li:hover {
+    background-color: #e74c3c;
+}
+
+#toggle {
+    width: 25px;
+    height: 100%;
+    background: #444;
+    position: absolute;
+    right: -25px;
+    top: 0;
+    opacity: 1;
+    box-shadow: 3px 0 5px rgba(0, 0, 0, .5);
+    cursor: pointer;
+}
+
+img {
+    width: 50%;
+    left: 25%;
+    position: relative;
+    top: 50%;
+}
+
+* {
+    font-family: 'Cabin', sans-serif;
+}
+
+#playlist {
+    height: 100%;
+    width: 400px;
+    background: #fafafa;
+    padding: 0;
+    position: relative;
+    display: block;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+ul {
+
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    list-style-type: none;
+
+}
+
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+}
+
+a {
+    display: block;
+    width: 100%;
+    font-size: 0.8em;
+    padding: 0.4em 0 0.4em 20px;
+    border-bottom: 1px solid #000000;
+    position: relative;
+}
+
+a:hover {
+    cursor: pointer;
+}
+
+#player {
+    height: 100%;
+
+}
+
+button {
+    display: inline-block;
+    width: 100%;
+    padding: 5px;
+}
+
+#toggle:active > img {
+    transform: rotate(-180deg);
+}

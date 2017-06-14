@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CanvasVisualiser</title>
+    <script src="https://connect.soundcloud.com/sdk/sdk-3.1.2.js"></script>
+    <script src="js/jquery.min.js"></script>
+    <script src="https://w.soundcloud.com/player/api.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div id="sidebar">
+    <div id="player">
+
+        <div id="playlist">
+            <audio id="audioPlayer" controls></audio>
+            <button id="oscilloscopeButton">effect1</button>
+            <button id="frequencyBarsButton">effect2</button>
+            <ul></ul>
+        </div>
+
+    </div>
+
+    <div id="toggle">
+        <img id="img" src="http://www.clker.com/cliparts/r/c/z/k/x/c/greater-than-hi.png"/>
+    </div>
+</div>
+
+
+<canvas id="visualizer" class="visualizer"></canvas>
+<script src="js/main.js"></script>
+<script src="js/toggle.js"></script>
+</body>
+</html>
