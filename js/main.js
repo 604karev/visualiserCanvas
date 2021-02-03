@@ -1,7 +1,11 @@
-(function () {
+window.onload = function () {
+
     var requestAnimFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
         window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
     var soundPlayer = document.getElementById('audioPlayer');
+    soundPlayer.onplay = function () {
+        audioCtx.resume();
+    };
     var audioCtx = new AudioContext();
     var source = audioCtx.createMediaElementSource(soundPlayer);// передаем наш плеер как новый ресурс Аудио контекста
     var analyser = audioCtx.createAnalyser();// создаем анализотор
@@ -37,12 +41,8 @@
 
     var clientParameter = "client_id=1LY3andosanxRfzP83CfGU7JP8rJjKab";// параметры учетки soundcloud
     var trackPermalinkUrl = 'https://soundcloud.com/ndby/05-1';// грузим трек по умолчанию
-    $.ajax("https://api.soundcloud.com/resolve.json?url=" + trackPermalinkUrl + "&" + clientParameter, {
-            success: function (response) {
-                soundPlayer.src = response.stream_url + '?' + clientParameter;// назначаем ссылку потока
-            }
-        }
-    );
+
+
     $.ajax('https://api.soundcloud.com/playlists/43184050?' + clientParameter, {//грузим объект плейлист у которого поле tracks это массив из обектов с информацией по треками
         success: function (response) {
             SC.initialize({// инициализируемся в SoundCloud Api
@@ -62,22 +62,31 @@
                 songLi.appendChild(song);// a в li
                 playlist.appendChild(songLi)// li в ul
             }
+            soundPlayer.src = response.tracks[0].stream_url + '?' + clientParameter;
             var songs = document.querySelectorAll('.song');
             for (i = 0; i < songs.length; i++) {
-                songs[i].addEventListener('click', function (e) {// на каждый трек в нашем списке вешаем обработчик событий  по клику
-                    SC.get('/tracks/' + e.target.id + '?enable_api=true').then(function (song) {
-                        var songLink = song.stream_url; // назначаем ссылку на песню
-                        soundPlayer.src = songLink + '?' + clientParameter; // методами api soundcloud грузим наш трек по клику
-                        soundPlayer.play();// воспроизводим трек
-                        var allLinks = document.querySelectorAll('.song');// массив ссылок
-                        for (var j = 0; j < allLinks.length; j++) {
-                            if (allLinks[j].childNodes[1] !== undefined) {// проверяем, если из-за авторских или по другим причинам прав информация о треке отстутствет
-                                var childEl = allLinks[j].childNodes[1]; // присваеваем ее переменной
-                                childEl.parentNode.removeChild(childEl); // и удаляем из DOM дерева
-                            }
+                songs[i].addEventListener('click', function (e) {
+                    audioCtx.resume().then(function () {
+                            return SC.get('/tracks/' + e.target.id + '?enable_api=true').then(function (song) {
+                                var songLink = song.stream_url; // назначаем ссылку на песню
+                                soundPlayer.src = songLink + '?' + clientParameter; // методами api soundcloud грузим наш трек по клику
+                                soundPlayer.play();// воспроизводим трек
+                                var allLinks = document.querySelectorAll('.song');// массив ссылок
+                                for (var j = 0; j < allLinks.length; j++) {
+                                    if (allLinks[j].childNodes[1] !== undefined) {// проверяем, если из-за авторских или по другим причинам прав информация о треке отстутствет
+                                        var childEl = allLinks[j].childNodes[1]; // присваеваем ее переменной
+                                        childEl.parentNode.removeChild(childEl); // и удаляем из DOM дерева
+                                    }
+                                }
+                                e.target.className += ' active'; //добавляем класс active для добавления доп свойств полю с активным треком
+                            });
+
                         }
-                        e.target.className += ' active'; //добавляем класс active для добавления доп свойств полю с активным треком
-                    });
+                    );
+
+
+                    // на каждый трек в нашем списке вешаем обработчик событий  по клику
+
                 });
             }
         }
@@ -93,4 +102,4 @@
     source.connect(analyser); // подключаем наш анализатор к созданному элементу Media ресурса, Аудио контекста
     analyser.connect(audioCtx.destination);// подключаем анализотор с колонкам
     start();
-})();
+};
