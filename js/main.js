@@ -3,9 +3,6 @@ window.onload = function () {
     var requestAnimFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
         window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
     var soundPlayer = document.getElementById('audioPlayer');
-    soundPlayer.onplay = function () {
-        audioCtx.resume();
-    };
     var audioCtx = new AudioContext();
     var source = audioCtx.createMediaElementSource(soundPlayer);// передаем наш плеер как новый ресурс Аудио контекста
     var analyser = audioCtx.createAnalyser();// создаем анализотор
@@ -31,7 +28,7 @@ window.onload = function () {
         for (var i = 0; i < analyser.frequencyBinCount; i++) {// для каждорого элемента полученых данынх
             var percent = frequencyData[i] / frequencyCount;// высчитываем отношение значение/ количество частот
             var barHeight = canvas.height * percent;// и смещаем по Y
-            ctx.lineTo((i ) * barWidth, barHeight);
+            ctx.lineTo((i) * barWidth, barHeight);
         }
         ctx.lineTo(canvas.width, Math.round(canvas.height / 2));// рсуем кривую каждое изменение фрейма
         ctx.stroke();
@@ -40,7 +37,6 @@ window.onload = function () {
     }
 
     var clientParameter = "client_id=1LY3andosanxRfzP83CfGU7JP8rJjKab";// параметры учетки soundcloud
-    var trackPermalinkUrl = 'https://soundcloud.com/ndby/05-1';// грузим трек по умолчанию
 
 
     $.ajax('https://api.soundcloud.com/playlists/43184050?' + clientParameter, {//грузим объект плейлист у которого поле tracks это массив из обектов с информацией по треками
@@ -83,7 +79,6 @@ window.onload = function () {
 
                         }
                     );
-
 
                     // на каждый трек в нашем списке вешаем обработчик событий  по клику
 

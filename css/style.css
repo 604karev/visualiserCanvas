@@ -141,6 +141,6 @@ button {
     padding: 5px;
 }
 
-#toggle:active > img {
-    transform: rotate(-180deg);
+.rotate {
+    transform: rotate(180deg);
 }
